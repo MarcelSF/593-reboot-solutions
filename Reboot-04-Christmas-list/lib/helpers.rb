@@ -29,7 +29,7 @@ def scrape_etsy(keyword)
   return etsy_array
 end
 
-def load_csv
+def load_csv # Use the load_csv method as you load up your program
   filepath = 'lib/gifts.csv'
   p filepath
   # read from the CSV, create gifts hashes and store them in an array
@@ -43,7 +43,7 @@ def load_csv
 end
 
 
-def save_to_csv(gift_list)
+def save_to_csv(gift_list) # Use the save_to_csv method whenever there is a change in your gift_list!
   csv_options = { col_sep: ',', force_quotes: true, quote_char: '"' }
   filepath = 'lib/gifts.csv'
 

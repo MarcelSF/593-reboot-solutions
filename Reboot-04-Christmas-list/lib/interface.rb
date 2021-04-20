@@ -3,6 +3,9 @@ require 'pry-byebug'
 require 'open-uri'
 require 'nokogiri'
 require 'csv'
+
+# The pseudocode for the main actions are at the bottom of the file!
+
 #1 greet the user
 puts "\n"
 puts "*" * 31
@@ -34,6 +37,8 @@ until action == 'quit'
     gift_price = gets.chomp.to_i
     gift_hash = {name: gift_name, price: gift_price, bought: false}
     gift_list << gift_hash
+    # Save the updated gift_list
+    save_to_csv(gift_list)
   when 'delete'
     puts "Which gift do you wish to delete? Type a number"
     # list the gifts
@@ -42,6 +47,8 @@ until action == 'quit'
     gift_index = gets.chomp.to_i - 1
     # Remove the gift from the gift_list
     gift_list.delete_at(gift_index)
+    # Save the updated gift_list
+    save_to_csv(gift_list)
   when 'mark'
     puts "What do you wish to mark as bought? (please type the index)"
     display_list(gift_list)
@@ -49,6 +56,8 @@ until action == 'quit'
     gift_index = gets.chomp.to_i - 1
     gift_list[gift_index][:bought] = true
     display_list(gift_list)
+    # Save the updated gift_list
+    save_to_csv(gift_list)
   when 'idea'
     puts "What are you looking for, dear customer?"
     idea = gets.chomp
@@ -61,6 +70,8 @@ until action == 'quit'
     index = gets.chomp.to_i - 1
     # Add the chosen etsy gift to the gift_list
     gift_list << results[index]
+    save_to_csv(gift_list)
+    # Save the updated gift_list
     display_list(gift_list)
   when 'quit'
     puts "Goodbye!"
