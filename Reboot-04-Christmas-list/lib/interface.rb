@@ -2,6 +2,7 @@ require_relative 'helpers.rb'
 require 'pry-byebug'
 require 'open-uri'
 require 'nokogiri'
+require 'csv'
 #1 greet the user
 puts "\n"
 puts "*" * 31
@@ -11,7 +12,7 @@ puts "*" + " " * 29 + "*"
 puts "*" * 31
 #2 Display the options to the user (good place to start the loop)
 action = ''
-gift_list = []
+gift_list = load_csv
 until action == 'quit'
   puts "Which action do you wish to perform?(list|add|delete|mark|idea|quit)"
   #3 Get the user input

@@ -1,3 +1,5 @@
+require 'csv'
+
 def display_list(list)
   list.each_with_index do |gift, index|
     bought = gift[:bought] ? '[x]' : '[ ]'
@@ -25,4 +27,32 @@ def scrape_etsy(keyword)
     # Look for name
   end
   return etsy_array
+end
+
+def load_csv
+  filepath = 'lib/gifts.csv'
+  p filepath
+  # read from the CSV, create gifts hashes and store them in an array
+  gifts = []
+
+  CSV.foreach(filepath, { headers: :first_row }) do |row|
+    gift = {name: row['name'], price: row['price'].to_i, bought: row['bought'] == 'true'}
+    gifts << gift
+  end
+  return gifts
+end
+
+
+def save_to_csv(gift_list)
+  csv_options = { col_sep: ',', force_quotes: true, quote_char: '"' }
+  filepath = 'lib/gifts.csv'
+
+  CSV.open(filepath, 'wb', csv_options) do |csv|
+    csv << ['name', 'price', 'bought']
+
+    gift_list.each do |gift|
+      csv << [ gift[:name], gift[:price], gift[:bought] ]
+    end
+  end
+
 end
